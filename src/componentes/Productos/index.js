@@ -2,13 +2,12 @@ import React, {useContext} from 'react'
 import { DataContext } from "../../context/Dataprovider";
 import { ProductoItem } from "./ProductoItem";
 
+
 export const ProductoLista = () => {
 
   const value = useContext(DataContext)
   const [productos] = value.productos
-
-  console.log(productos)
-
+ 
 
   return (
     <>

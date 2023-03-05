@@ -1,6 +1,6 @@
-import React, {useContext} from 'react'
-import  Card  from "../../images/img02.jpg";
+import React, {useContext, useState} from 'react'
 import { DataContext } from "../../context/Dataprovider";
+import { Payment } from "../payment/index";
 
 export const Carrito = () => {
 
@@ -8,9 +8,11 @@ export const Carrito = () => {
   const [menu, setMenu] = value.menu
   const [carrito, setCarrito] = value.carrito;
   const [total] = value.total;
+  const [isPayment,setIsPayment] = useState(false)
 
   const tooglefalse = ()=>{
     setMenu(false);
+    setIsPayment(false);
   }
 
   const show1 = menu ? "carroto show" : "carritos";
@@ -34,7 +36,13 @@ export const Carrito = () => {
     })
   }
 
-
+ const payment = () => {
+  if (!isPayment) {
+    setIsPayment (true)
+  }else {
+    setIsPayment(false)
+  }
+ }
 
   const removeProducto = id =>{
     if(window.confirm("¿Quieres eliminar este producto del carrito?")){
@@ -52,20 +60,20 @@ export const Carrito = () => {
 
 
   return (
+     
     <div className={show1}>
         <div className={show2}>
           <div className='carrito__close' onClick={tooglefalse}>
             <box-icon name="x"></box-icon>
     </div>
-    <h2>Su carrito</h2>
-
-
     
 
-    
+    {isPayment ?
+      <><h2>Detalle de compra</h2>
+      <div className='carrito__Center'> <Payment carrito={carrito} removeProducto={removeProducto} payment={payment} total={total}/></div></>:
     <div className='carrito__Center'>
-    {
-
+    <h2>Su carrito</h2>{
+      
       carrito.length === 0 ? <h2 style={{
         textAlign: "center", fontSize: "3rem"
       }} > Carrito Vacio </h2> : <>
@@ -89,16 +97,17 @@ export const Carrito = () => {
           </div>
         ))
     }
+            <div className='carrito__footer'>
+          <h3 >Total: ${total}</h3>
+          <button onClick={()=>payment()} className='btn'>Payment</button>
+        </div>
     </>
   }
-        </div>
+          </div>
 
-        <div className='carrito__footer'>
-          <h3 >Total: ${total}</h3>
-          <button className='btn'>Payment</button>
-        </div>
+}
       </div>
     </div>
-      
+    
   )
 }

@@ -1,7 +1,13 @@
 import React, { useContext, useState, useEffect }from 'react'
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { DataContext } from "../../context/Dataprovider";
 import { useParams } from "react-router-dom";
 import { ProductoItem } from "./ProductoItem";
+
+
+
+
+
 
 
 export const ProductosDetalles = () => {
@@ -12,7 +18,15 @@ export const ProductosDetalles = () => {
   const [url, setUrl]= useState(0)
   const [images, setImages] = useState('')
   const params = useParams();
+  const [data, setData] = useState([])
   let item = 0;
+
+  useEffect (()  => {
+    const querydb = getFirestore ();
+    const queryDoc = doc(querydb, "products", "DGqyacms7NFMwZasM2Hd");
+    getDoc(queryDoc)
+      .then(res => setData({id:res.id, ...res.data()}))
+ }, [])
 
   useEffect(() =>{
     console.log('re render' , params.id)

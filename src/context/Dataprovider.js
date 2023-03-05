@@ -6,8 +6,16 @@ export const DataContext = createContext();
 export const DataProvider = (props) =>{
     const[productos, setProductos] = useState([])
     const [menu, setMenu] = useState(false);
-    const [carrito, setCarrito] = useState([]);
+    const[carrito,setCarrito] = useState( () =>{
+        const datCarrito = localStorage.getItem('dataCarrito');
+        const dataCarrito = JSON.parse(datCarrito);
+        return dataCarrito;
+    });
 	const [total, setTotal] = useState(0);
+
+	useEffect(()=>{
+        localStorage.setItem('dataCarrito', JSON.stringify(carrito));
+    }, [carrito]);
 
 
     useEffect(() => {
