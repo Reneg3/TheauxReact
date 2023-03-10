@@ -1,13 +1,7 @@
 import React, { useContext, useState, useEffect }from 'react'
-import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { DataContext } from "../../context/Dataprovider";
 import { useParams } from "react-router-dom";
 import { ProductoItem } from "./ProductoItem";
-
-
-
-
-
 
 
 export const ProductosDetalles = () => {
@@ -21,14 +15,10 @@ export const ProductosDetalles = () => {
   const [data, setData] = useState([])
   let item = 0;
 
-  useEffect (()  => {
-    const querydb = getFirestore ();
-    const queryDoc = doc(querydb, "products", "DGqyacms7NFMwZasM2Hd");
-    getDoc(queryDoc)
-      .then(res => setData({id:res.id, ...res.data()}))
- }, [])
+  
 
   useEffect(() =>{
+
     console.log('re render' , params.id)
     item=0;
     productos.forEach(producto =>{
@@ -78,7 +68,7 @@ export const ProductosDetalles = () => {
           <button onClick={() => addCarrito(detalle.id)}>
             Añadir al carrito
           </button>
-          
+
           {
             url ? <img src={images} alt={detalle.title}/> : <img src={detalle.image} alt={detalle.title}/>
           }
@@ -88,9 +78,9 @@ export const ProductosDetalles = () => {
           <br/>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam vitae accusantium omnis, facere laudantium ipsa hic reprehenderit blanditiis quibusdam quos repellendus id illo reiciendis magni, aliquid beatae, consequatur sapiente! Sequi facere itaque,</p>
           </div>
-          
+
         </div>
-   
+
     }
     <h2 className="relacionados">Productos relacionados</h2>
     <div className="productos">
@@ -107,11 +97,11 @@ export const ProductosDetalles = () => {
           id={producto.id}
           />
           }
-          
-        
+
+
         })
       }
-     
+
     </div>
     </>
   )

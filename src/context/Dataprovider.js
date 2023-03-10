@@ -1,19 +1,18 @@
 import React, { useState, useEffect, createContext } from "react";
-import { Carrito } from "../componentes/Carrito";
 import Data from "../Data"
 export const DataContext = createContext();
 
 export const DataProvider = (props) =>{
     const[productos, setProductos] = useState([])
     const [menu, setMenu] = useState(false);
-    const[carrito,setCarrito] = useState( () =>{
+	const[carrito,setCarrito] = useState( () =>{
         const datCarrito = localStorage.getItem('dataCarrito');
         const dataCarrito = JSON.parse(datCarrito);
         return dataCarrito;
     });
 	const [total, setTotal] = useState(0);
 
-	useEffect(()=>{
+    useEffect(()=>{
         localStorage.setItem('dataCarrito', JSON.stringify(carrito));
     }, [carrito]);
 
@@ -61,7 +60,7 @@ useEffect(() =>{
 		}
 		getTotal()
 	},[carrito])
-		
+
 
     const value = {
         productos : [productos],
